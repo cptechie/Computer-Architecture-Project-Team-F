@@ -68,7 +68,7 @@ always@* begin
 			// zeroselect_out = 1'b0;
 		end 
 
-		{6'b000_000,6'h100_010}: begin // SUB(R-type)
+		{6'b000_000,6'b100_010}: begin // SUB(R-type)
 			regWrite_out = 1'b1;
 			regDst_out   = 1'b1;
 			ALUSrc_out   = 1'b0;
@@ -84,7 +84,7 @@ always@* begin
 		end 
 
 
-		{6'b000_000,6'h100_100}: begin // AND(R-type)
+		{6'b000_000,6'b100_100}: begin // AND(R-type)
 			regWrite_out = 1'b1;
 			regDst_out   = 1'b1;
 			ALUSrc_out   = 1'b0;
