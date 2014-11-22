@@ -334,7 +334,9 @@ TRANSITION_LIST("op_in[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 90.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 890.0;
 	}
 }
 
@@ -343,7 +345,9 @@ TRANSITION_LIST("op_in[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 70.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 910.0;
 	}
 }
 
@@ -352,7 +356,15 @@ TRANSITION_LIST("op_in[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 60.0;
+		NODE
+		{
+			REPEAT = 2;
+			LEVEL 1 FOR 10.0;
+			LEVEL 0 FOR 10.0;
+		}
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 890.0;
 	}
 }
 
@@ -362,8 +374,8 @@ TRANSITION_LIST("func_in[5]")
 	{
 		REPEAT = 1;
 		LEVEL 0 FOR 10.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 980.0;
+		LEVEL 1 FOR 50.0;
+		LEVEL 0 FOR 940.0;
 	}
 }
 
@@ -381,7 +393,9 @@ TRANSITION_LIST("func_in[3]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 50.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 940.0;
 	}
 }
 
@@ -390,7 +404,9 @@ TRANSITION_LIST("func_in[2]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 30.0;
+		LEVEL 1 FOR 20.0;
+		LEVEL 0 FOR 950.0;
 	}
 }
 
@@ -399,7 +415,11 @@ TRANSITION_LIST("func_in[1]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 20.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 940.0;
 	}
 }
 
@@ -408,7 +428,9 @@ TRANSITION_LIST("func_in[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 0 FOR 1000.0;
+		LEVEL 0 FOR 40.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 950.0;
 	}
 }
 
@@ -528,6 +550,61 @@ DISPLAY_LINE
 	TREE_INDEX = 0;
 	TREE_LEVEL = 0;
 	CHILDREN = 1, 2, 3, 4, 5, 6;
+	COMMENT
+	{
+		TIME = 60450;
+		RISE = 6;
+		RUN = 11;
+		TEXT = "ADDI";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 70000;
+		RISE = 15;
+		RUN = 15;
+		TEXT = "LW";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 80000;
+		RISE = 15;
+		RUN = 15;
+		TEXT = "SW";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 90000;
+		RISE = 15;
+		RUN = 15;
+		TEXT = "BEQ";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 99950;
+		RISE = 10;
+		RUN = 15;
+		TEXT = "J";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
 }
 
 DISPLAY_LINE
@@ -598,6 +675,61 @@ DISPLAY_LINE
 	TREE_INDEX = 7;
 	TREE_LEVEL = 0;
 	CHILDREN = 8, 9, 10, 11, 12, 13;
+	COMMENT
+	{
+		TIME = 10100;
+		RISE = -2;
+		RUN = 26;
+		TEXT = "ADD";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 20100;
+		RISE = -2;
+		RUN = 19;
+		TEXT = "SUB";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 30050;
+		RISE = -1;
+		RUN = 22;
+		TEXT = "AND";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 40050;
+		RISE = -5;
+		RUN = 18;
+		TEXT = "OR";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
+	COMMENT
+	{
+		TIME = 50150;
+		RISE = -7;
+		RUN = 15;
+		TEXT = "SLT";
+		FONT_NAME = "Arial";
+		FONT_SIZE = 8;
+		FONT_STYLE = "Regular";
+		FONT_COLOR = 0;
+	}
 }
 
 DISPLAY_LINE
