@@ -54,7 +54,7 @@ assign memToReg_out = 	op_in == LW;
 
 assign memRead_out 	=	op_in == LW;
 						
-assign ALUOp_out[1] = 	op_in != 6'b000_000;
+assign ALUOp_out[1] = 	op_in == 6'b000_000;
 assign ALUOp_out[0] = 	op_in == BEQ;
 						
 assign jump_out		= 	op_in == J;
