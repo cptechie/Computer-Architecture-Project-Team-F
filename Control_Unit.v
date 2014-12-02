@@ -65,7 +65,8 @@ assign ALUSrc		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : ALUSrc_out;
 assign branch		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : branch_out;
 assign memWrite		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memWrite_out;
 assign memToReg		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memToReg_out;
-assign jump			= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : regWrite_out;
+assign memRead		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memRead_out;
+assign jump			= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : jump_out;
 assign ALUOp		= 	(op_in == ZERO && func_in == ZERO) ? 2'b0 : ALUOp_out;
 
 endmodule 
