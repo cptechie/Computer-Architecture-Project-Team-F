@@ -6,7 +6,7 @@ regWrite_out,
 regDst_out, 
  //  extCntrl_out, 
 ALUSrc_out, 
-ALUCntrl_out, 
+ALUOp_out, 
 memWrite_out,
 memToReg_out, 
 jump_out
@@ -15,7 +15,7 @@ jump_out
    
 input [5:0] op_in, func_in;
    
-output [3:0] ALUCntrl_out;
+output [1:0] ALUOp_out;
 output branch_out, jump_out;				
 output regWrite_out, regDst_out; 
 output ALUSrc_out;
@@ -48,17 +48,8 @@ assign memWrite_out = 	func_in == SW;
 						
 assign memToReg_out = 	func_in == LW;
 						
-assign ALUCntrl_out = 	(op_in == 6'b000_000 && func_in == ADD)	? 4'b0010 :			//ADD
-						(op_in == 6'b000_000 && func_in == SUB)	? 4'b0110 :			//SUB
-						//(op_in == 6'b000_000 && func_in == AND)	? 4'b0000 :			//AND
-						(op_in == 6'b000_000 && func_in == OR)	? 4'b0001 :			//OR
-						(op_in == 6'b000_000 && func_in == SLT)	? 4'b0111 :			//SLT
-						(op_in == ADDI 	&& func_in == DONTCARE)	? 4'b0000 :			//ADDI
-						(op_in == LW 	&& func_in == DONTCARE)	? 4'b0010 :			//LW
-						(op_in == SW 	&& func_in == DONTCARE)	? 4'b0010 :			//SW
-						(op_in == BEQ 	&& func_in == DONTCARE)	? 4'b0110 :			//BEQ
-						//(op_in == J 	&& func_in == DONTCARE)	? 4'b0000 :			//J	
-						4'b0000;
+assign ALUOp_out[1] = 	op_in != 6'b000_000;
+assign ALUOp_out[0] = 	func_in == BEQ;
 						
 assign jump_out		= 	func_in == J;
 						
