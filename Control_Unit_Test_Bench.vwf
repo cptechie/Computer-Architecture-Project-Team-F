@@ -172,34 +172,34 @@ SIGNAL("func_in[0]")
 	PARENT = "func_in";
 }
 
-SIGNAL("branch_out")
+SIGNAL("ALUOp_out")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
+	SIGNAL_TYPE = BUS;
+	WIDTH = 2;
+	LSB_INDEX = 0;
 	DIRECTION = OUTPUT;
 	PARENT = "";
 }
 
-SIGNAL("regWrite_out")
+SIGNAL("ALUOp_out[1]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "";
+	PARENT = "ALUOp_out";
 }
 
-SIGNAL("regDst_out")
+SIGNAL("ALUOp_out[0]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "";
+	PARENT = "ALUOp_out";
 }
 
 SIGNAL("ALUSrc_out")
@@ -212,57 +212,7 @@ SIGNAL("ALUSrc_out")
 	PARENT = "";
 }
 
-SIGNAL("ALUCntrl_out")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = BUS;
-	WIDTH = 4;
-	LSB_INDEX = 0;
-	DIRECTION = OUTPUT;
-	PARENT = "";
-}
-
-SIGNAL("ALUCntrl_out[3]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "ALUCntrl_out";
-}
-
-SIGNAL("ALUCntrl_out[2]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "ALUCntrl_out";
-}
-
-SIGNAL("ALUCntrl_out[1]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "ALUCntrl_out";
-}
-
-SIGNAL("ALUCntrl_out[0]")
-{
-	VALUE_TYPE = NINE_LEVEL_BIT;
-	SIGNAL_TYPE = SINGLE_BIT;
-	WIDTH = 1;
-	LSB_INDEX = -1;
-	DIRECTION = OUTPUT;
-	PARENT = "ALUCntrl_out";
-}
-
-SIGNAL("memWrite_out")
+SIGNAL("branch_out")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -272,7 +222,7 @@ SIGNAL("memWrite_out")
 	PARENT = "";
 }
 
-SIGNAL("memRead_out")
+SIGNAL("jump_out")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -292,7 +242,27 @@ SIGNAL("memToReg_out")
 	PARENT = "";
 }
 
-SIGNAL("jump_out")
+SIGNAL("memWrite_out")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("regDst_out")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("regWrite_out")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -436,7 +406,7 @@ TRANSITION_LIST("func_in[0]")
 	}
 }
 
-TRANSITION_LIST("branch_out")
+TRANSITION_LIST("ALUOp_out[1]")
 {
 	NODE
 	{
@@ -445,16 +415,7 @@ TRANSITION_LIST("branch_out")
 	}
 }
 
-TRANSITION_LIST("regWrite_out")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("regDst_out")
+TRANSITION_LIST("ALUOp_out[0]")
 {
 	NODE
 	{
@@ -472,7 +433,7 @@ TRANSITION_LIST("ALUSrc_out")
 	}
 }
 
-TRANSITION_LIST("ALUCntrl_out[3]")
+TRANSITION_LIST("branch_out")
 {
 	NODE
 	{
@@ -481,43 +442,7 @@ TRANSITION_LIST("ALUCntrl_out[3]")
 	}
 }
 
-TRANSITION_LIST("ALUCntrl_out[2]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("ALUCntrl_out[1]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("ALUCntrl_out[0]")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("memWrite_out")
-{
-	NODE
-	{
-		REPEAT = 1;
-		LEVEL X FOR 1000.0;
-	}
-}
-
-TRANSITION_LIST("memRead_out")
+TRANSITION_LIST("jump_out")
 {
 	NODE
 	{
@@ -535,7 +460,25 @@ TRANSITION_LIST("memToReg_out")
 	}
 }
 
-TRANSITION_LIST("jump_out")
+TRANSITION_LIST("memWrite_out")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("regDst_out")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("regWrite_out")
 {
 	NODE
 	{
@@ -796,29 +739,32 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "branch_out";
+	CHANNEL = "ALUOp_out";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 14;
 	TREE_LEVEL = 0;
+	CHILDREN = 15, 16;
 }
 
 DISPLAY_LINE
 {
-	CHANNEL = "regWrite_out";
+	CHANNEL = "ALUOp_out[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 15;
-	TREE_LEVEL = 0;
+	TREE_LEVEL = 1;
+	PARENT = 14;
 }
 
 DISPLAY_LINE
 {
-	CHANNEL = "regDst_out";
+	CHANNEL = "ALUOp_out[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 16;
-	TREE_LEVEL = 0;
+	TREE_LEVEL = 1;
+	PARENT = 14;
 }
 
 DISPLAY_LINE
@@ -832,78 +778,10 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "ALUCntrl_out";
+	CHANNEL = "branch_out";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 18;
-	TREE_LEVEL = 0;
-	CHILDREN = 19, 20, 21, 22;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "ALUCntrl_out[3]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 19;
-	TREE_LEVEL = 1;
-	PARENT = 18;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "ALUCntrl_out[2]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 20;
-	TREE_LEVEL = 1;
-	PARENT = 18;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "ALUCntrl_out[1]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 21;
-	TREE_LEVEL = 1;
-	PARENT = 18;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "ALUCntrl_out[0]";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 22;
-	TREE_LEVEL = 1;
-	PARENT = 18;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "memWrite_out";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 23;
-	TREE_LEVEL = 0;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "memRead_out";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 24;
-	TREE_LEVEL = 0;
-}
-
-DISPLAY_LINE
-{
-	CHANNEL = "memToReg_out";
-	EXPAND_STATUS = COLLAPSED;
-	RADIX = Binary;
-	TREE_INDEX = 25;
 	TREE_LEVEL = 0;
 }
 
@@ -912,7 +790,43 @@ DISPLAY_LINE
 	CHANNEL = "jump_out";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
-	TREE_INDEX = 26;
+	TREE_INDEX = 19;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "memToReg_out";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 20;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "memWrite_out";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 21;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "regDst_out";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 22;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "regWrite_out";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 23;
 	TREE_LEVEL = 0;
 }
 
