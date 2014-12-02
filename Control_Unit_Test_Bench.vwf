@@ -272,6 +272,16 @@ SIGNAL("regWrite_out")
 	PARENT = "";
 }
 
+SIGNAL("memRead_out")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
 TRANSITION_LIST("op_in[5]")
 {
 	NODE
@@ -479,6 +489,15 @@ TRANSITION_LIST("regDst_out")
 }
 
 TRANSITION_LIST("regWrite_out")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+TRANSITION_LIST("memRead_out")
 {
 	NODE
 	{
@@ -827,6 +846,15 @@ DISPLAY_LINE
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 23;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "memRead_out";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 24;
 	TREE_LEVEL = 0;
 }
 
