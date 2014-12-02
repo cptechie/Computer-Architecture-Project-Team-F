@@ -35,23 +35,27 @@ BEQ		= 6'b000_100,
 J		= 6'b000_010,
 DONTCARE= 6'bxxx_xxx;
 
-assign regWrite_out = 	op_in == (6'b000_000 || ADDI || LW) ;
+assign regWrite_out = 	(op_in == ADDI)	||
+						(op_in == LW)	||
+						(op_in == 6'b000_000);
 						
 
-assign regDst_out = 	op_in == (6'b000_000) ;
+assign regDst_out = 	op_in == 6'b000_000;
 						 
-assign ALUSrc_out = 	func_in == (ADDI || LW || SW);
+assign ALUSrc_out = 	(op_in == ADDI)	||
+						(op_in == LW)	||
+						(op_in == SW);
 						
-assign branch_out = 	func_in == BEQ;
+assign branch_out = 	op_in == BEQ;
 						
-assign memWrite_out = 	func_in == SW;
+assign memWrite_out = 	op_in == SW;
 						
-assign memToReg_out = 	func_in == LW;
+assign memToReg_out = 	op_in == LW;
 						
 assign ALUOp_out[1] = 	op_in != 6'b000_000;
-assign ALUOp_out[0] = 	func_in == BEQ;
+assign ALUOp_out[0] = 	op_in == BEQ;
 						
-assign jump_out		= 	func_in == J;
+assign jump_out		= 	op_in == J;
 						
  // output zeroselect_out;
  // reg zeroselect_out;
