@@ -7,7 +7,8 @@ regDst_out,
 ALUSrc_out, 
 ALUOp_out, 
 memWrite_out,
-memToReg_out, 
+memToReg_out,
+memRead_out, 
 jump_out
 );
    
@@ -17,7 +18,7 @@ output [1:0] ALUOp_out;
 output branch_out, jump_out;				
 output regWrite_out, regDst_out; 
 output ALUSrc_out;
-output memWrite_out, memToReg_out;
+output memWrite_out, memRead_out, memToReg_out;
 
 
 parameter
@@ -48,6 +49,8 @@ assign branch_out = 	op_in == BEQ;
 assign memWrite_out = 	op_in == SW;
 						
 assign memToReg_out = 	op_in == LW;
+
+assign memRead_out 	=	op_in == LW;
 						
 assign ALUOp_out[1] = 	op_in != 6'b000_000;
 assign ALUOp_out[0] = 	op_in == BEQ;
