@@ -8,32 +8,64 @@ regDst_out,
 ALUSrc_out, 
 ALUCntrl_out, 
 memWrite_out,
-memRead_out,
 memToReg_out, 
-jump_out,
+jump_out
 // zeroselect_out
 );
    
 input [5:0] op_in, func_in;
    
 output [3:0] ALUCntrl_out;
-reg [3:0] ALUCntrl_out;
-   
 output branch_out, jump_out;				
-reg branch_out, jump_out;				
-   
-output regWrite_out, regDst_out;
-reg regWrite_out, regDst_out;
-   
+output regWrite_out, regDst_out; 
 output ALUSrc_out;
-reg ALUSrc_out;
-   
-output memWrite_out, memRead_out, memToReg_out;
-reg memWrite_out, memRead_out, memToReg_out;
-   
+output memWrite_out, memToReg_out;
+
+
+parameter
+ADD		= 6'b100_000,
+SUB		= 6'b100_010,
+OR		= 6'b100_101,
+SLT		= 6'b100_010,
+AND		= 6'b100_100,
+ADDI	= 6'b001_000,
+LW		= 6'b100_011,
+SW		= 6'b101_011,
+BEQ		= 6'b000_100,
+J		= 6'b000_010,
+DONTCARE= 6'bxxx_xxx;
+
+assign regWrite_out = 	op_in == (6'b000_000 || ADDI || LW) ;
+						
+
+assign regDst_out = 	op_in == (6'b000_000) ;
+						 
+assign ALUSrc_out = 	func_in == (ADDI || LW || SW);
+						
+assign branch_out = 	func_in == BEQ;
+						
+assign memWrite_out = 	func_in == SW;
+						
+assign memToReg_out = 	func_in == LW;
+						
+assign ALUCntrl_out = 	(op_in == 6'b000_000 && func_in == ADD)	? 4'b0010 :			//ADD
+						(op_in == 6'b000_000 && func_in == SUB)	? 4'b0110 :			//SUB
+						//(op_in == 6'b000_000 && func_in == AND)	? 4'b0000 :			//AND
+						(op_in == 6'b000_000 && func_in == OR)	? 4'b0001 :			//OR
+						(op_in == 6'b000_000 && func_in == SLT)	? 4'b0111 :			//SLT
+						(op_in == ADDI 	&& func_in == DONTCARE)	? 4'b0000 :			//ADDI
+						(op_in == LW 	&& func_in == DONTCARE)	? 4'b0010 :			//LW
+						(op_in == SW 	&& func_in == DONTCARE)	? 4'b0010 :			//SW
+						(op_in == BEQ 	&& func_in == DONTCARE)	? 4'b0110 :			//BEQ
+						//(op_in == J 	&& func_in == DONTCARE)	? 4'b0000 :			//J	
+						4'b0000;
+						
+assign jump_out		= 	func_in == J;
+						
  // output zeroselect_out;
  // reg zeroselect_out;
 
+/*
 always@* begin
 	casex({op_in, func_in})
 
@@ -53,15 +85,11 @@ always@* begin
 	    
 	  
 		//Begin R-type
-		{6'b000_000, 6'b100_000}: begin // ADD(R-type) 
+		{6'b000_000, 6'b100_000}: begin // (R-type) 
 			regWrite_out = 1'b1;
 			regDst_out   = 1'b1;
 			ALUSrc_out   = 1'b0;
-			branch_out   = 1'b0;
-			memWrite_out = 1'b0;
-			memToReg_out = 1'b0;
-			memRead_out  = 1'b0;
-
+s
 			ALUCntrl_out = 4'b0000;
 			jump_out     = 1'b0;
 			// extCntrl_out = 1'b1;
@@ -240,7 +268,7 @@ always@* begin
 	endcase
 
 end 
-      
+*/      
 endmodule 
 
 
