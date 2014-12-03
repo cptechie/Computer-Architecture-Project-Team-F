@@ -74,7 +74,7 @@ $RECYCLE.BIN/
 *.pin
 *.mif
 *.hex
-*.qpf
+#*.qpf
 *.qsf
 
 # ignore Quartus II generated folders
