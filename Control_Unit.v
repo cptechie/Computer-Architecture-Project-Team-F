@@ -6,7 +6,8 @@ regDst,
 ALUSrc, 
 branch, 
 memWrite, 
-memToReg, 
+memToReg,
+memRead, 
 jump,
 ALUOp
 );
@@ -19,7 +20,7 @@ wire regWrite_out, regDst_out;
 wire ALUSrc_out;
 wire memWrite_out, memRead_out, memToReg_out;
 
-output regWrite, regDst, ALUSrc, branch, memWrite, memToReg, jump;
+output regWrite, regDst, ALUSrc, branch, memWrite, memToReg, memRead, jump;
 output [1:0] ALUOp;
 
 parameter
@@ -37,10 +38,10 @@ ZERO	= 6'b000_000;
 
 assign regWrite_out = 	(op_in == ADDI)	||
 						(op_in == LW)	||
-						(op_in == 6'b000_000);
+						(op_in == ZERO);
 						
 
-assign regDst_out	= 	op_in == 6'b000_000;
+assign regDst_out	= 	op_in == ZERO;
 						 
 assign ALUSrc_out	= 	(op_in == ADDI)	||
 						(op_in == LW)	||
@@ -54,7 +55,7 @@ assign memToReg_out = 	op_in == LW;
 
 assign memRead_out 	=	op_in == LW;
 						
-assign ALUOp_out[1] = 	op_in == 6'b000_000;
+assign ALUOp_out[1] = 	op_in == ZERO;
 assign ALUOp_out[0] = 	op_in == BEQ;
 						
 assign jump_out		= 	op_in == J;
