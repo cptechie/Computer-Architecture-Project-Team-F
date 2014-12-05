@@ -47,7 +47,7 @@ module Control_Unit
 	       memRead  = 0; //0 means NO  and 1 means YES
 	       branch   = 0; //0 means NO  and 1 means YES
 	       jump     = 0; //0 means NO  and 1 means YES
-	       ALUCntrl = 4'bxxxx; 
+	       ALUCntrl = 4'b1111; 
 	    end 
 	    
 	  
