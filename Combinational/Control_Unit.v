@@ -1,11 +1,58 @@
+/************************************************************************
+	  ___  ___ _____ ______  _____            
+	  |  \/  ||_   _|| ___ \/  ___|           
+	  | .  . |  | |  | |_/ /\ `--.            
+	  | |\/| |  | |  |  __/  `--. \           
+	  | |  | | _| |_ | |    /\__/ /           
+	  \_|  |_/ \___/ \_|    \____/            
+	 _____                _                 _ 
+	/  __ \              | |               | |
+	| /  \/  ___   _ __  | |_  _ __   ___  | |
+	| |     / _ \ | '_ \ | __|| '__| / _ \ | |
+	| \__/\| (_) || | | || |_ | |   | (_) || |
+	 \____/ \___/ |_| |_| \__||_|    \___/ |_|
+		_   _         _  _                    
+	   | | | |       (_)| |                   
+	   | | | | _ __   _ | |_                  
+	   | | | || '_ \ | || __|                 
+	   | |_| || | | || || |_                  
+		\___/ |_| |_||_| \__|                 
+
+	CSE7381 Computer Architecture Project
+	Logic Type: Combinational Logic
+	
+	+---------+-------+-------------+
+	| Inputs  | Size  | Description |
+	+---------+-------+-------------+
+	| op_in   | 6-bit | OPCODE      |
+	| func_in | 6-bit | FUNCTION    |
+	+---------+-------+-------------+
+	
+	+----------+-------+
+	| Outputs  | Size  |
+	+----------+-------+
+	| regWrite | 1-bit |
+	| regDst   | 1-bit |
+	| ALUSrc   | 1-bit |
+	| branch   | 1-bit |
+	| memWrite | 1-bit |
+	| memToReg | 1-bit |
+	| memRead  | 1-bit |
+	| jump     | 1-bit |
+	| ALUCntrl | 4-bit |
+	+----------+-------+
+
+************************************************************************/
+
+
 module Control_Unit(
 	op_in,
 	func_in,
-	regWrite, 
-	regDst, 
-	ALUSrc, 
-	branch, 
-	memWrite, 
+	regWrite,
+	regDst,
+	ALUSrc,
+	branch,
+	memWrite,
 	memToReg,
 	memRead, 
 	jump,
@@ -15,7 +62,7 @@ module Control_Unit(
 	input [5:0] op_in, func_in;
 
 	wire [3:0] ALUCntrl_out;
-	wire branch_out, jump_out;				
+	wire branch_out, jump_out;s
 	wire regWrite_out, regDst_out; 
 	wire ALUSrc_out;
 	wire memWrite_out, memRead_out, memToReg_out;
