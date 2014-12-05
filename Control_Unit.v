@@ -9,19 +9,19 @@ memWrite,
 memToReg,
 memRead, 
 jump,
-ALUOp
+ALUCntrl
 );
    
 input [5:0] op_in, func_in;
    
-wire [1:0] ALUOp_out;
+wire [3:0] ALUCntrl_out;
 wire branch_out, jump_out;				
 wire regWrite_out, regDst_out; 
 wire ALUSrc_out;
 wire memWrite_out, memRead_out, memToReg_out;
 
 output regWrite, regDst, ALUSrc, branch, memWrite, memToReg, memRead, jump;
-output [1:0] ALUOp;
+output [3:0] ALUCntrl;
 
 parameter
 ADD		= 6'b100_000,
@@ -34,6 +34,7 @@ LW		= 6'b100_011,
 SW		= 6'b101_011,
 BEQ		= 6'b000_100,
 J		= 6'b000_010,
+DONTCARE= 6'bxxx_x,
 ZERO	= 6'b000_000;
 
 assign regWrite_out = 	(op_in == ADDI)	||
@@ -55,8 +56,17 @@ assign memToReg_out = 	op_in == LW;
 
 assign memRead_out 	=	op_in == LW;
 						
-assign ALUOp_out[1] = 	op_in == ZERO;
-assign ALUOp_out[0] = 	op_in == BEQ;
+assign ALUCntrl_out		= 	//(op_in == ZERO && func_in == ADD) 		? 4'b0000 :
+											(op_in == ZERO && func_in == SUB) 		? 4'b0001 :
+											(op_in == ZERO && func_in == AND) 		? 4'b0010 :
+											(op_in == ZERO && func_in == SLT)		  ? 4'b0100 :
+											(op_in == ZERO && func_in == OR)  		? 4'b0101 :
+											(op_in == LW && func_in == DONTCARE)	? 4'b1000 :
+											(op_in == SW && func_in == DONTCARE)	? 4'b1000 :
+											//(op_in == ADDI && func_in == DONTCARE)? 4'b0000 :
+											(op_in == BEQ && func_in == DONTCARE)	? 4'b1000 : 1'b0;
+											
+
 						
 assign jump_out		= 	op_in == J;
 
@@ -68,7 +78,7 @@ assign memWrite		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memWrite_out;
 assign memToReg		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memToReg_out;
 assign memRead		= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : memRead_out;
 assign jump			= 	(op_in == ZERO && func_in == ZERO) ? 1'b0 : jump_out;
-assign ALUOp		= 	(op_in == ZERO && func_in == ZERO) ? 2'b0 : ALUOp_out;
+assign ALUCntrl		= 	(op_in == ZERO && func_in == ZERO) ? 4'b0 : ALUCntrl_out;
 
 endmodule 
 
