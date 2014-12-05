@@ -308,8 +308,16 @@ TRANSITION_LIST("op_in[3]")
 	{
 		REPEAT = 1;
 		LEVEL 0 FOR 60.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 10.0;
+		NODE
+		{
+			REPEAT = 1;
+			LEVEL 1 FOR 10.0;
+		}
+		NODE
+		{
+			REPEAT = 1;
+			LEVEL 0 FOR 10.0;
+		}
 		LEVEL 1 FOR 10.0;
 		LEVEL 0 FOR 20.0;
 		LEVEL 1 FOR 10.0;
@@ -359,9 +367,7 @@ TRANSITION_LIST("func_in[5]")
 		REPEAT = 1;
 		LEVEL 0 FOR 10.0;
 		LEVEL 1 FOR 50.0;
-		LEVEL 0 FOR 60.0;
-		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 870.0;
+		LEVEL 0 FOR 940.0;
 	}
 }
 
@@ -381,7 +387,9 @@ TRANSITION_LIST("func_in[3]")
 		REPEAT = 1;
 		LEVEL 0 FOR 50.0;
 		LEVEL 1 FOR 10.0;
-		LEVEL 0 FOR 940.0;
+		LEVEL 0 FOR 60.0;
+		LEVEL 1 FOR 10.0;
+		LEVEL 0 FOR 870.0;
 	}
 }
 
@@ -523,8 +531,8 @@ DISPLAY_LINE
 	COMMENT
 	{
 		TIME = 60450;
-		RISE = 6;
-		RUN = 11;
+		RISE = 15;
+		RUN = 20;
 		TEXT = "ADDI";
 		FONT_NAME = "Arial";
 		FONT_SIZE = 8;
@@ -692,7 +700,7 @@ DISPLAY_LINE
 	COMMENT
 	{
 		TIME = 50150;
-		RISE = -7;
+		RISE = -2;
 		RUN = 15;
 		TEXT = "SLT";
 		FONT_NAME = "Arial";
@@ -866,13 +874,13 @@ DISPLAY_LINE
 
 TIME_BAR
 {
-	TIME = 41225;
+	TIME = 40000;
 	MASTER = TRUE;
 }
 
 TIME_BAR
 {
-	TIME = 115600;
+	TIME = 120000;
 	MASTER = FALSE;
 }
 ;
