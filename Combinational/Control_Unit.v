@@ -61,8 +61,10 @@ assign ALUCntrl_out		= 	//(op_in == ZERO && func_in == ADD) 		? 4'b0000 :
 											(op_in == ZERO && func_in == AND) 		? 4'b0010 :
 											(op_in == ZERO && func_in == SLT)		  ? 4'b0100 :
 											(op_in == ZERO && func_in == OR)  		? 4'b0101 :
+											(op_in == ZERO && func_in == SLT)		  ? 4'b0100 :
 											(op_in == LW && func_in == DONTCARE)	? 4'b1000 :
 											(op_in == SW && func_in == DONTCARE)	? 4'b1000 :
+											
 											//(op_in == ADDI && func_in == DONTCARE)? 4'b0000 :
 											(op_in == BEQ && func_in == DONTCARE)	? 4'b1000 : 1'b0;
 											
