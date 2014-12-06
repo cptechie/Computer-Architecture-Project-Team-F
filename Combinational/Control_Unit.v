@@ -257,14 +257,28 @@ module Control_Unit(
     | LW          | 1'b0  |
     | SW          | 1'b0  |
     | BEQ         | 1'b0  |
-    | J           | 1'b1ss  |
+    | J           | 1'b1  |
     +-------------+-------+
     */
     assign jump_out     =   op_in == J;
     
-//*****************************************************************************************
-//  Default Conditions if op_in and func_in are undefined
-
+    /*****************************************************************************************
+    Default Conditions if op_in and func_in are both undefined
+    +-------------+---------+
+    | OPCODE/FUNC |  Value  |
+    +-------------+---------+
+    | ADD         | 1'b0    |
+    | SUB         | 1'b0    |
+    | OR          | 1'b0    |
+    | SLT         | 4'b1111 |
+    | AND         | 1'b0    |
+    | ADDI        | 1'b0    |
+    | LW          | 1'b0    |
+    | SW          | 1'b0    |
+    | BEQ         | 1'b0    |
+    | J           | 1'b0    |
+    +-------------+---------+
+    */
     assign regWrite     =   (op_in == ZERO && func_in == ZERO) ? 1'b0   : regWrite_out;
     assign regDst       =   (op_in == ZERO && func_in == ZERO) ? 1'b0   : regDst_out;
     assign ALUSrc       =   (op_in == ZERO && func_in == ZERO) ? 1'b0   : ALUSrc_out;
