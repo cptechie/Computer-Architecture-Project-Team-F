@@ -82,24 +82,160 @@ module Control_Unit(
     J           = 6'b000_010,
     ZERO        = 6'b000_000;
 
+    /*
+    regWrite Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b1  |
+    | SUB         | 1'b1  |
+    | OR          | 1'b1  |
+    | SLT         | 1'b1  |
+    | AND         | 1'b1  |
+    | ADDI        | 1'b1  |
+    | LW          | 1'b1  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign regWrite_out =   (op_in == ADDI) ||
                             (op_in == LW)   ||
                             (op_in == ZERO);
 
+    /*
+    regDst Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b1  |
+    | SUB         | 1'b1  |
+    | OR          | 1'b1  |
+    | SLT         | 1'b1  |
+    | AND         | 1'b1  |
+    | ADDI        | 1'b1  |
+    | LW          | 1'b1  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign regDst_out   =   op_in == ZERO;
 
+    /*
+    ALUSrc Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b1  |
+    | LW          | 1'b1  |
+    | SW          | 1'b1  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign ALUSrc_out   =   (op_in == ADDI) ||
                             (op_in == LW)   ||
                             (op_in == SW);
 
+    /*
+    branch Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b0  |
+    | LW          | 1'b0  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b1  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign branch_out   =   op_in == BEQ;
 
+    /*
+    memWrite Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b0  |
+    | LW          | 1'b0  |
+    | SW          | 1'b1  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign memWrite_out =   op_in == SW;
 
+    /*
+    memToReg Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b0  |
+    | LW          | 1'b1  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign memToReg_out =   op_in == LW;
 
+    /*
+    memRead Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b0  |
+    | LW          | 1'b1  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b0  |
+    +-------------+-------+
+    */
     assign memRead_out  =   op_in == LW;
 
+    /*
+    ALUCntrl Logic
+    +-------------+---------+
+    | OPCODE/FUNC |  Value  |
+    +-------------+---------+
+    | ADD         | 4'b0000 |
+    | SUB         | 4'b0001 |
+    | OR          | 4'b0101 |
+    | SLT         | 4'b0000 |
+    | AND         | 4'b0010 |
+    | ADDI        | 4'b0000 |
+    | LW          | 4'b1000 |
+    | SW          | 4'b1000 |
+    | BEQ         | 4'b1000 |
+    | J           | 4'b0000 |
+    +-------------+---------+
+    */
     assign ALUCntrl_out =   (op_in == ZERO && func_in == SUB)       ? 4'b0001 :
                             (op_in == ZERO && func_in == AND)       ? 4'b0010 :
                             (op_in == ZERO && func_in == OR)        ? 4'b0101 :
@@ -107,6 +243,23 @@ module Control_Unit(
                            ((op_in == LW ||
                              op_in == SW || op_in == BEQ))          ? 4'b1000 : 4'b0000;
 
+    /*
+    memRead Logic
+    +-------------+-------+
+    | OPCODE/FUNC | Value |
+    +-------------+-------+
+    | ADD         | 1'b0  |
+    | SUB         | 1'b0  |
+    | OR          | 1'b0  |
+    | SLT         | 1'b0  |
+    | AND         | 1'b0  |
+    | ADDI        | 1'b0  |
+    | LW          | 1'b0  |
+    | SW          | 1'b0  |
+    | BEQ         | 1'b0  |
+    | J           | 1'b1ss  |
+    +-------------+-------+
+    */
     assign jump_out     =   op_in == J;
     
 //*****************************************************************************************
